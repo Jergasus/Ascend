@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.jergasus.ascend",
+      "sha256_cert_fingerprints": [
+        "6E:03:32:0C:55:C2:13:FA:47:E6:95:3E:FD:D8:33:63:D0:CE:0B:BF:90:54:9B:7E:73:BF:73:E9:85:DD:0E:45"
+      ]
+    }
+  }
+]
