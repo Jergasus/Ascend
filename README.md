@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Free-Open%20Source-22c55e?style=for-the-badge" alt="Free & Open Source" />
+  <img src="https://img.shields.io/badge/Free-No%20Ads-22c55e?style=for-the-badge" alt="Free, No Ads" />
   <img src="https://img.shields.io/badge/iOS-Available-007AFF?style=for-the-badge&logo=apple&logoColor=white" alt="iOS" />
   <img src="https://img.shields.io/badge/Android-Available-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" />
 </p>
@@ -7,7 +7,7 @@
 <h1 align="center">Ascend</h1>
 
 <p align="center">
-  A free, open-source habit tracker that helps you build better routines.<br/>
+  A free habit tracker that helps you build better routines.<br/>
   Track your habits, visualize your progress, and ascend to your best self.
 </p>
 
@@ -15,8 +15,7 @@
   <a href="#features">Features</a> &bull;
   <a href="#screenshots">Screenshots</a> &bull;
   <a href="#tech-stack">Tech Stack</a> &bull;
-  <a href="#getting-started">Getting Started</a> &bull;
-  <a href="#project-structure">Project Structure</a> &bull;
+  <a href="#architecture">Architecture</a> &bull;
   <a href="#support">Support</a>
 </p>
 
@@ -60,96 +59,33 @@ Most habit trackers either lock features behind paywalls or drown you in complex
 | Drag & Drop | dnd-kit |
 | Hosting | Vercel |
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- PostgreSQL database (or [Prisma Postgres](https://www.prisma.io/postgres))
-- Google OAuth credentials ([Google Cloud Console](https://console.cloud.google.com/))
-
-### Setup
-
-```bash
-git clone https://github.com/Jergasus/Ascend.git && cd Ascend
-npm install
-cp .env.example .env
-# Fill in your environment variables in .env
-npx prisma migrate dev
-npm run dev
-```
-
-Open **http://localhost:3000** to see the app.
-
-### Mobile Development
-
-Ascend uses Capacitor to run as a native app on iOS and Android:
-
-```bash
-# Build the web app
-npm run build
-
-# Sync with native platforms
-npx cap sync ios      # or android
-
-# Open in IDE
-npx cap open ios      # Opens Xcode
-npx cap open android  # Opens Android Studio
-```
-
-> [!NOTE]
-> The app loads its frontend from a remote Vercel deployment by default. To develop locally, update the `server.url` in `capacitor.config.ts` to point to your local dev server IP.
-
-## Project Structure
+## Architecture
 
 ```
-.
-├── src/
-│   ├── app/                        # Next.js pages & API routes
-│   │   ├── api/
-│   │   │   ├── auth/               # NextAuth + Google native auth
-│   │   │   ├── completions/        # Habit completion toggle
-│   │   │   ├── habits/             # Habits CRUD + reorder
-│   │   │   └── theme/              # Theme color persistence
-│   │   ├── auth/                   # Auth flow pages
-│   │   ├── privacy/                # Privacy Policy
-│   │   └── terms/                  # Terms of Service
-│   │
-│   ├── components/
-│   │   ├── auth/                   # AuthButtons, AuthProvider
-│   │   ├── habits/                 # Habit CRUD, list, form, sorting
-│   │   ├── settings/               # Settings, color picker, language
-│   │   ├── stats/                  # Statistics, calendar view
-│   │   ├── ui/                     # Background, animations, nav, toast
-│   │   ├── HomeWrapper.tsx         # Top-level wrapper
-│   │   └── MainScreen.tsx          # Main app orchestrator
-│   │
-│   ├── contexts/                   # React contexts (Habits, Language, Toast)
-│   ├── lib/                        # Server actions, DB, notifications, translations
-│   └── types/                      # TypeScript types
+src/
+├── app/                        # Next.js pages & API routes
+│   ├── api/
+│   │   ├── auth/               # NextAuth + Google native auth
+│   │   ├── completions/        # Habit completion toggle
+│   │   ├── habits/             # Habits CRUD + reorder
+│   │   └── theme/              # Theme color persistence
+│   ├── auth/                   # Auth flow pages
+│   ├── privacy/                # Privacy Policy
+│   └── terms/                  # Terms of Service
 │
-├── prisma/                         # Database schema & migrations
-├── android/                        # Capacitor Android project
-├── ios/                            # Capacitor iOS project
-├── public/                         # Static assets
-├── capacitor.config.ts             # Capacitor configuration
-└── .env.example                    # Environment variables template
+├── components/
+│   ├── auth/                   # AuthButtons, AuthProvider
+│   ├── habits/                 # Habit CRUD, list, form, sorting
+│   ├── settings/               # Settings, color picker, language
+│   ├── stats/                  # Statistics, calendar view
+│   └── ui/                     # Background, animations, nav, toast
+│
+├── contexts/                   # React contexts (Habits, Language, Toast)
+├── lib/                        # Server actions, DB, notifications, translations
+└── types/                      # TypeScript types
 ```
 
-## Configuration
-
-All configuration is done via environment variables. See [`.env.example`](.env.example) for the full list.
-
-| Variable | Purpose |
-|---|---|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `GOOGLE_CLIENT_ID` | Google OAuth Web Client ID |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth secret |
-| `GOOGLE_IOS_CLIENT_ID` | Google OAuth iOS Client ID |
-| `GOOGLE_ANDROID_CLIENT_ID` | Google OAuth Android Client ID |
-| `NEXTAUTH_SECRET` | Session encryption key |
-| `NEXTAUTH_URL` | App URL (e.g. `http://localhost:3000`) |
-| `NEXT_PUBLIC_API_URL` | Deployed app URL |
+The app is built as a hybrid — Next.js handles the frontend and API, while Capacitor wraps it as a native iOS/Android app with access to device features like push notifications and Google native sign-in.
 
 ## Support
 
