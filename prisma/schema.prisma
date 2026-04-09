@@ -31,7 +31,6 @@ model Habit {
   createdAt  DateTime  @default(now()) // Creation date used to calculate "every 2 days"
   completions Completion[]
 
-  // --- THE KEY CONNECTION! ---
   // Each Habit belongs to ONE User
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
