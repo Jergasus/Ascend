@@ -242,8 +242,8 @@ export default function SortableHabitItem({
         transition={{
           layout: {
             type: "spring",
-            stiffness: 300,
-            damping: 30,
+            stiffness: 150,
+            damping: 25,
           },
           scale: { duration: 0.2 },
           boxShadow: { duration: 0.2 },
