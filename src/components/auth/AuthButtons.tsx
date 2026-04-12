@@ -66,7 +66,14 @@ export default function AuthButtons() {
         await signIn("google");
       }
     } catch (error) {
-      alert('Login failed: ' + (error instanceof Error ? error.message : String(error)));
+      const err = error as { message?: string; code?: string | number; name?: string; stack?: string };
+      const details = [
+        `message: ${err?.message ?? String(error)}`,
+        err?.code !== undefined ? `code: ${err.code}` : null,
+        err?.name ? `name: ${err.name}` : null,
+      ].filter(Boolean).join('\n');
+      console.error('[Login] Full error object:', error);
+      alert('Login failed:\n\n' + details);
     } finally {
       setIsLoggingIn(false);
     }
