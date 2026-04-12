@@ -6,11 +6,8 @@ import { useToast } from "@/contexts/ToastContext";
 import { shouldShowHabitToday } from "@/lib/habitFrequency";
 import {
   X,
-  Trash2,
-  Edit2,
   BarChart3,
   Filter,
-  GripVertical,
   Eye,
   Calendar,
   Check,
@@ -139,14 +136,6 @@ export default function CheckHabitsModal({
   };
 
   const currentWeek = getCurrentWeek();
-
-  // Helper to generate consistent keys using local time
-  const makeKey = (habitId: number, date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${habitId}-${year}-${month}-${day}`;
-  };
 
   // --- FIX: Calculate progress using LOCAL date ---
   const todayDate = new Date();
@@ -598,7 +587,6 @@ export default function CheckHabitsModal({
                             key={habit.id}
                             habit={habit}
                             currentWeek={currentWeek}
-                            makeKey={makeKey}
                             completions={completions}
                             handleToggle={handleToggle}
                             setEditingHabit={setEditingHabit}

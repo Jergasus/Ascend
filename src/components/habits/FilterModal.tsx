@@ -51,7 +51,7 @@ export default function FilterModal({
           </button>
         </div>
 
-        {/* Categorías */}
+        {/* Categories */}
         <div className="space-y-3 mb-6 py-4">
           {categories.length === 0 ? (
             <p className="text-white/60 text-center py-4">
@@ -79,7 +79,7 @@ export default function FilterModal({
           )}
         </div>
 
-        {/* Botones de acción */}
+        {/* Action buttons */}
         <div className="flex gap-3">
           <button
             onClick={onClearFilters}

@@ -268,7 +268,7 @@ export default function AllHabitsViewModal({
       </div>
     </div>
 
-      {/* Modal de edición - rendered outside to have its own backdrop */}
+      {/* Edit modal - rendered outside to have its own backdrop */}
       {editingHabit && (
         <EditHabitModal
           habit={editingHabit}

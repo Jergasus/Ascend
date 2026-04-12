@@ -18,7 +18,6 @@ import type { Habit, Frequency } from "@/types";
 interface SortableHabitItemProps {
   habit: Habit;
   currentWeek: Date[];
-  makeKey: (habitId: number, date: Date) => string;
   completions: Map<string, number>;
   handleToggle: (habitId: number, date: Date) => void;
   setEditingHabit: (habit: {
@@ -167,7 +166,6 @@ const calculateStreaks = (habit: Habit, completions: Map<string, number>) => {
 export default function SortableHabitItem({
   habit,
   currentWeek,
-  makeKey,
   completions,
   handleToggle,
   setEditingHabit,
@@ -255,7 +253,7 @@ export default function SortableHabitItem({
           <button
             {...listeners}
             className="text-white/40 hover:text-white/80 transition-colors cursor-grab active:cursor-grabbing touch-none"
-            title="Arrastrar para reordenar"
+            title="Drag to reorder"
           >
             <GripVertical size={20} className="sm:w-6 sm:h-6" />
           </button>
