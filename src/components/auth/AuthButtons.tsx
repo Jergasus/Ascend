@@ -3,7 +3,7 @@
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { GoogleAuth } from "@southdevs/capacitor-google-auth";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/lib/translations";
@@ -70,14 +70,7 @@ export default function AuthButtons() {
         await signIn("google");
       }
     } catch (error) {
-      const err = error as { message?: string; code?: string | number; name?: string; stack?: string };
-      const details = [
-        `message: ${err?.message ?? String(error)}`,
-        err?.code !== undefined ? `code: ${err.code}` : null,
-        err?.name ? `name: ${err.name}` : null,
-      ].filter(Boolean).join('\n');
-      console.error('[Login] Full error object:', error);
-      alert('Login failed:\n\n' + details);
+      alert('Login failed: ' + (error instanceof Error ? error.message : String(error)));
     } finally {
       setIsLoggingIn(false);
     }
