@@ -1,4 +1,4 @@
-package com.jergasus.ascend;
+package app.jergasus.ascend;
 
 import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;

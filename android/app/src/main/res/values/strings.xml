@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ascend</string>
     <string name="title_activity_main">Ascend</string>
-    <string name="package_name">com.jergasus.ascend</string>
-    <string name="custom_url_scheme">com.jergasus.ascend</string>
+    <string name="package_name">app.jergasus.ascend</string>
+    <string name="custom_url_scheme">app.jergasus.ascend</string>
     <string name="server_client_id">855813163896-49ltpmfd8dgbfqnkjl6vgtr21o6h7ni5.apps.googleusercontent.com</string>
 </resources>

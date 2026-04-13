@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config: CapacitorConfig = {
-  appId: 'com.jergasus.ascend',
+  appId: 'app.jergasus.ascend',
   appName: 'Ascend',
   webDir: 'out',
   server: {
