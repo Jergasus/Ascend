@@ -488,41 +488,41 @@ export default function CheckHabitsModal({
               </div>
 
               {/* Controls & Progress */}
-              <div className="flex items-center gap-1 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
                 {/* Daily Progress Indicator */}
-                <div className="flex items-center gap-1 sm:gap-2 text-sm sm:mr-2 min-w-0 flex-shrink">
-                  <span className="text-white/80 font-semibold text-right">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-white/80 font-semibold min-w-[2.5rem] text-right">
                     {completedHabitsToday}/{totalHabitsToday}
                   </span>
-                  <div className="w-10 sm:w-24 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
+                  <div className="w-12 sm:w-24 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
                     <div
                       className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full transition-all duration-700 ease-out"
                       style={{ width: `${progressPercentage}%` }}
                     />
                   </div>
-                  <span className="text-white/60 font-semibold text-right">
+                  <span className="text-white/60 font-semibold min-w-[2.75rem] text-right">
                     {formattedPercentage}%
                   </span>
                 </div>
 
-                <div className="flex items-center gap-0 sm:gap-2 flex-shrink-0">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <button
                     onClick={() => setShowCalendar(true)}
-                    className="text-purple-400 hover:text-purple-300 transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2"
+                    className="text-purple-400 hover:text-purple-300 transition-all duration-200 hover:scale-125 active:scale-90 p-2"
                     title={t.calendarView}
                   >
                     <Calendar size={20} />
                   </button>
                   <button
                     onClick={() => setShowAllHabits(true)}
-                    className="text-blue-400 hover:text-blue-300 transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2"
+                    className="text-blue-400 hover:text-blue-300 transition-all duration-200 hover:scale-125 active:scale-90 p-2"
                     title={t.viewAllHabits}
                   >
                     <Eye size={20} />
                   </button>
                   <button
                     onClick={() => setShowFilter(true)}
-                    className={`transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2 relative ${
+                    className={`transition-all duration-200 hover:scale-125 active:scale-90 p-2 relative ${
                       selectedCategories.size > 0
                         ? "text-yellow-400 hover:text-yellow-300"
                         : "text-white/60 hover:text-white"
@@ -538,7 +538,7 @@ export default function CheckHabitsModal({
                   </button>
                   <button
                     onClick={() => setShowStats(true)}
-                    className="text-green-400 hover:text-green-300 transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2"
+                    className="text-green-400 hover:text-green-300 transition-all duration-200 hover:scale-125 active:scale-90 p-2"
                     title={t.viewStatistics}
                   >
                     <BarChart3 size={20} />
