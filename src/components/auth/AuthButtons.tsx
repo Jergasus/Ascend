@@ -21,12 +21,16 @@ export default function AuthButtons() {
         const { Capacitor } = await import('@capacitor/core');
         const isNative = Capacitor.isNativePlatform();
         setIsNativePlatform(isNative);
-        
+
         if (isNative) {
-          // Initialize Google Auth plugin with full config
-          // Note: serverClientId comes from capacitor.config.ts
+          const platform = Capacitor.getPlatform();
+          const clientId =
+            platform === 'ios'
+              ? process.env.NEXT_PUBLIC_GOOGLE_IOS_CLIENT_ID!
+              : process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!;
+
           GoogleAuth.initialize({
-            clientId: process.env.NEXT_PUBLIC_GOOGLE_IOS_CLIENT_ID!,
+            clientId,
             scopes: ['profile', 'email'],
             grantOfflineAccess: true,
           });
