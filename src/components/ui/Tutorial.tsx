@@ -22,6 +22,9 @@ export default function Tutorial({ hasSeenTutorial }: TutorialProps) {
         stagePadding: 8,
         stageRadius: 50, // Make it fully round
         popoverClass: "driverjs-theme",
+        nextBtnText: t.tutorialNext,
+        prevBtnText: t.tutorialPrevious,
+        doneBtnText: t.tutorialDone,
         steps: [
           {
             element: "#create-habit-btn",

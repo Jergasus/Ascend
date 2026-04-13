@@ -427,7 +427,7 @@ export default function HabitFormModal({
                     type="button"
                     onClick={handleAddReminder}
                     className="p-1 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
-                    title="Add reminder"
+                    title={t.addReminder}
                   >
                     <Plus size={16} />
                   </button>

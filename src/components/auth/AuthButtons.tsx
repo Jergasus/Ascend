@@ -70,7 +70,7 @@ export default function AuthButtons() {
         await signIn("google");
       }
     } catch (error) {
-      alert('Login failed: ' + (error instanceof Error ? error.message : String(error)));
+      alert(t.loginFailed + ': ' + (error instanceof Error ? error.message : String(error)));
     } finally {
       setIsLoggingIn(false);
     }

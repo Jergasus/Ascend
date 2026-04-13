@@ -191,6 +191,9 @@ export interface Translations {
   tutorialSettingsTitle: string;
   tutorialSettingsDesc: string;
   tutorialExitConfirm: string;
+  tutorialNext: string;
+  tutorialPrevious: string;
+  tutorialDone: string;
 
   // Mobile Auth Callback
   verifyingSession: string;
@@ -200,6 +203,12 @@ export interface Translations {
   couldNotLogin: string;
   returnToApp: string;
   connecting: string;
+  loginFailed: string;
+
+  // Header tooltips
+  viewAllHabits: string;
+  viewStatistics: string;
+  addReminder: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -397,6 +406,13 @@ export const translations: Record<Language, Translations> = {
     couldNotLogin: "Could not log in",
     returnToApp: "Return to app",
     connecting: "Connecting...",
+    loginFailed: "Login failed",
+    tutorialNext: "Next",
+    tutorialPrevious: "Previous",
+    tutorialDone: "Done",
+    viewAllHabits: "View all habits",
+    viewStatistics: "View statistics",
+    addReminder: "Add reminder",
   },
   es: {
     // Home View
@@ -599,6 +615,13 @@ export const translations: Record<Language, Translations> = {
     couldNotLogin: "No se pudo iniciar sesión",
     connecting: "Conectando...",
     returnToApp: "Volver a la app",
+    loginFailed: "Error de inicio de sesión",
+    tutorialNext: "Siguiente",
+    tutorialPrevious: "Anterior",
+    tutorialDone: "Hecho",
+    viewAllHabits: "Ver todos los hábitos",
+    viewStatistics: "Ver estadísticas",
+    addReminder: "Añadir recordatorio",
   },
   fr: {
     // Home View
@@ -799,6 +822,13 @@ export const translations: Record<Language, Translations> = {
     couldNotLogin: "Impossible de se connecter",
     connecting: "Connexion...",
     returnToApp: "Retourner à l'application",
+    loginFailed: "Échec de connexion",
+    tutorialNext: "Suivant",
+    tutorialPrevious: "Précédent",
+    tutorialDone: "Terminé",
+    viewAllHabits: "Voir toutes les habitudes",
+    viewStatistics: "Voir les statistiques",
+    addReminder: "Ajouter un rappel",
   },
   de: {
     // Home View
@@ -1002,6 +1032,13 @@ export const translations: Record<Language, Translations> = {
     connecting: "Verbinden...",
     couldNotLogin: "Anmeldung fehlgeschlagen",
     returnToApp: "Zurück zur App",
+    loginFailed: "Anmeldung fehlgeschlagen",
+    tutorialNext: "Weiter",
+    tutorialPrevious: "Zurück",
+    tutorialDone: "Fertig",
+    viewAllHabits: "Alle Gewohnheiten anzeigen",
+    viewStatistics: "Statistiken anzeigen",
+    addReminder: "Erinnerung hinzufügen",
   },
   pt: {
     // Home View
@@ -1203,6 +1240,13 @@ export const translations: Record<Language, Translations> = {
     connecting: "Conectando...",
     couldNotLogin: "Não foi possível fazer login",
     returnToApp: "Voltar ao app",
+    loginFailed: "Falha no login",
+    tutorialNext: "Próximo",
+    tutorialPrevious: "Anterior",
+    tutorialDone: "Concluído",
+    viewAllHabits: "Ver todos os hábitos",
+    viewStatistics: "Ver estatísticas",
+    addReminder: "Adicionar lembrete",
   },
   it: {
     // Home View
@@ -1403,6 +1447,13 @@ export const translations: Record<Language, Translations> = {
     authError: "Errore di autenticazione",
     couldNotLogin: "Impossibile accedere",
     returnToApp: "Torna all'app",
+    loginFailed: "Accesso non riuscito",
+    tutorialNext: "Successivo",
+    tutorialPrevious: "Precedente",
+    tutorialDone: "Fatto",
+    viewAllHabits: "Visualizza tutte le abitudini",
+    viewStatistics: "Visualizza statistiche",
+    addReminder: "Aggiungi promemoria",
   },
   ja: {
     // Home View
@@ -1600,6 +1651,13 @@ export const translations: Record<Language, Translations> = {
     authError: "認証エラー",
     couldNotLogin: "ログインできませんでした",
     returnToApp: "アプリに戻る",
+    loginFailed: "ログインに失敗しました",
+    tutorialNext: "次へ",
+    tutorialPrevious: "前へ",
+    tutorialDone: "完了",
+    viewAllHabits: "すべての習慣を表示",
+    viewStatistics: "統計を表示",
+    addReminder: "リマインダーを追加",
   },
   ko: {
     // Home View
@@ -1797,6 +1855,13 @@ export const translations: Record<Language, Translations> = {
     authError: "인증 오류",
     couldNotLogin: "로그인할 수 없습니다",
     returnToApp: "앱으로 돌아가기",
+    loginFailed: "로그인 실패",
+    tutorialNext: "다음",
+    tutorialPrevious: "이전",
+    tutorialDone: "완료",
+    viewAllHabits: "모든 습관 보기",
+    viewStatistics: "통계 보기",
+    addReminder: "알림 추가",
   },
   zh: {
     // Home View
@@ -1989,6 +2054,13 @@ export const translations: Record<Language, Translations> = {
     authError: "认证错误",
     couldNotLogin: "无法登录",
     returnToApp: "返回应用",
+    loginFailed: "登录失败",
+    tutorialNext: "下一步",
+    tutorialPrevious: "上一步",
+    tutorialDone: "完成",
+    viewAllHabits: "查看所有习惯",
+    viewStatistics: "查看统计",
+    addReminder: "添加提醒",
   },
 };
 

@@ -118,7 +118,9 @@ export function HabitsProvider({
 
   // Optimistic update functions (for immediate UI feedback)
   const addHabit = useCallback((habit: Habit) => {
-    setHabits((prev) => [...prev, habit]);
+    setHabits((prev) =>
+      prev.some((h) => h.id === habit.id) ? prev : [...prev, habit]
+    );
   }, []);
 
   const removeHabit = useCallback((id: number) => {

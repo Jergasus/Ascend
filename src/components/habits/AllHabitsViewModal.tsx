@@ -39,6 +39,7 @@ export default function AllHabitsViewModal({
 }: AllHabitsViewModalProps) {
   const {
     habits,
+    completions,
     removeHabit,
     updateHabitLocal,
     isDeleting,
@@ -94,7 +95,7 @@ export default function AllHabitsViewModal({
       if (result.data.notificationTime) {
         const hasPermission = await requestNotificationPermissions();
         if (hasPermission) {
-          await scheduleHabitNotification(result.data, t);
+          await scheduleHabitNotification(result.data, t, completions);
         }
       } else {
         // If notificationTime is null, cancel existing notifications
@@ -235,7 +236,7 @@ export default function AllHabitsViewModal({
                           isDeleting === habit.id
                         }
                         className="text-blue-400 hover:text-blue-300 transition-all duration-200 p-2 hover:scale-125 active:scale-90 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                        title="Edit habit"
+                        title={t.editHabit}
                       >
                         {isUpdating === habit.id ? (
                           <Loader2 size={20} className="animate-spin" />
@@ -250,7 +251,7 @@ export default function AllHabitsViewModal({
                           isUpdating === habit.id
                         }
                         className="text-red-400 hover:text-red-300 transition-all duration-200 p-2 hover:scale-125 active:scale-90 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                        title="Delete habit"
+                        title={t.deleteHabit}
                       >
                         {isDeleting === habit.id ? (
                           <Loader2 size={20} className="animate-spin" />

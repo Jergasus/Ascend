@@ -31,12 +31,12 @@ export default function MainScreen({
   hasSeenTutorial,
 }: MainScreenProps) {
   const { data: session } = useSession();
-  const { habits, isLoading } = useHabits();
+  const { habits, completions, isLoading } = useHabits();
   const { t, language } = useLanguage();
 
   useEffect(() => {
     if (!isLoading && habits.length > 0) {
-      rescheduleAllNotifications(habits, t);
+      rescheduleAllNotifications(habits, t, completions);
     }
   }, [isLoading, language]);
 

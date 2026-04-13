@@ -300,7 +300,7 @@ export default function CheckHabitsModal({
         } else {
           // If not completed (e.g. untoggled), ensure notifications are scheduled
           // This will reschedule all future notifications including today if applicable
-          await scheduleHabitNotification(habit, t);
+          await scheduleHabitNotification(habit, t, completions);
         }
       }
     }
@@ -337,7 +337,7 @@ export default function CheckHabitsModal({
       if (result.data.notificationTime) {
         const hasPermission = await requestNotificationPermissions();
         if (hasPermission) {
-          await scheduleHabitNotification(result.data, t);
+          await scheduleHabitNotification(result.data, t, completions);
 
           // Check if completed today to avoid rescheduling notification for today
           const today = new Date();
@@ -488,46 +488,46 @@ export default function CheckHabitsModal({
               </div>
 
               {/* Controls & Progress */}
-              <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="flex items-center gap-1 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
                 {/* Daily Progress Indicator */}
-                <div className="flex items-center gap-2 text-sm mr-2">
-                  <span className="text-white/80 font-semibold min-w-[2.5rem] text-right">
+                <div className="flex items-center gap-1 sm:gap-2 text-sm sm:mr-2 min-w-0 flex-shrink">
+                  <span className="text-white/80 font-semibold text-right">
                     {completedHabitsToday}/{totalHabitsToday}
                   </span>
-                  <div className="w-16 sm:w-24 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
+                  <div className="w-10 sm:w-24 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
                     <div
                       className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full transition-all duration-700 ease-out"
                       style={{ width: `${progressPercentage}%` }}
                     />
                   </div>
-                  <span className="text-white/60 font-semibold min-w-[3.25rem] text-right">
+                  <span className="text-white/60 font-semibold text-right">
                     {formattedPercentage}%
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1 sm:gap-2">
+                <div className="flex items-center gap-0 sm:gap-2 flex-shrink-0">
                   <button
                     onClick={() => setShowCalendar(true)}
-                    className="text-purple-400 hover:text-purple-300 transition-all duration-200 hover:scale-125 active:scale-90 p-2"
-                    title="Calendar view"
+                    className="text-purple-400 hover:text-purple-300 transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2"
+                    title={t.calendarView}
                   >
                     <Calendar size={20} />
                   </button>
                   <button
                     onClick={() => setShowAllHabits(true)}
-                    className="text-blue-400 hover:text-blue-300 transition-all duration-200 hover:scale-125 active:scale-90 p-2"
-                    title="View all habits"
+                    className="text-blue-400 hover:text-blue-300 transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2"
+                    title={t.viewAllHabits}
                   >
                     <Eye size={20} />
                   </button>
                   <button
                     onClick={() => setShowFilter(true)}
-                    className={`transition-all duration-200 hover:scale-125 active:scale-90 p-2 relative ${
+                    className={`transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2 relative ${
                       selectedCategories.size > 0
                         ? "text-yellow-400 hover:text-yellow-300"
                         : "text-white/60 hover:text-white"
                     }`}
-                    title="Filter by categories"
+                    title={t.filterByCategories}
                   >
                     <Filter size={20} />
                     {selectedCategories.size > 0 && (
@@ -538,8 +538,8 @@ export default function CheckHabitsModal({
                   </button>
                   <button
                     onClick={() => setShowStats(true)}
-                    className="text-green-400 hover:text-green-300 transition-all duration-200 hover:scale-125 active:scale-90 p-2"
-                    title="View statistics"
+                    className="text-green-400 hover:text-green-300 transition-all duration-200 hover:scale-125 active:scale-90 p-1.5 sm:p-2"
+                    title={t.viewStatistics}
                   >
                     <BarChart3 size={20} />
                   </button>

@@ -29,7 +29,11 @@ export const requestNotificationPermissions = async () => {
   return true;
 };
 
-export const scheduleHabitNotification = async (habit: Habit, t: Translations) => {
+export const scheduleHabitNotification = async (
+  habit: Habit,
+  t: Translations,
+  completions?: Map<string, number>
+) => {
   if (!habit.notificationTime) return;
 
   // Cancel existing notifications for this habit first to avoid duplicates
@@ -44,6 +48,7 @@ export const scheduleHabitNotification = async (habit: Habit, t: Translations) =
   const notifications: LocalNotificationSchema[] = [];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const dailyGoal = habit.dailyGoal || 1;
 
   // Schedule for the next 14 days
   // This "rolling window" approach allows us to cancel specific dates (e.g. if completed)
@@ -51,7 +56,7 @@ export const scheduleHabitNotification = async (habit: Habit, t: Translations) =
   for (let i = 0; i < 14; i++) {
     const checkDate = new Date(today);
     checkDate.setDate(today.getDate() + i);
-    
+
     let shouldSchedule = false;
 
     if (habit.frequency === 'DAILY') {
@@ -70,9 +75,19 @@ export const scheduleHabitNotification = async (habit: Habit, t: Translations) =
       if (diffDays % 2 === 0) shouldSchedule = true;
     }
 
+    // Skip dates already completed at/above daily goal
+    if (shouldSchedule && completions) {
+      const dateKey = `${habit.id}-${checkDate.getFullYear()}-${String(
+        checkDate.getMonth() + 1
+      ).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
+      if ((completions.get(dateKey) || 0) >= dailyGoal) {
+        shouldSchedule = false;
+      }
+    }
+
     if (shouldSchedule) {
       const dayOfYear = getDayOfYear(checkDate);
-      
+
       times.forEach((timeStr, index) => {
         if (index >= MAX_REMINDERS) return;
         
@@ -152,13 +167,17 @@ export const cancelNotificationForDate = async (habitId: number, date: Date) => 
   }
 };
 
-export const rescheduleAllNotifications = async (habits: Habit[], t: Translations) => {
+export const rescheduleAllNotifications = async (
+  habits: Habit[],
+  t: Translations,
+  completions?: Map<string, number>
+) => {
   const hasPermission = await requestNotificationPermissions();
   if (!hasPermission) return;
 
   for (const habit of habits) {
     if (habit.notificationTime) {
-      await scheduleHabitNotification(habit, t);
+      await scheduleHabitNotification(habit, t, completions);
     }
   }
 };
