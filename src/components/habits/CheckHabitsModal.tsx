@@ -488,19 +488,19 @@ export default function CheckHabitsModal({
               </div>
 
               {/* Controls & Progress */}
-              <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
                 {/* Daily Progress Indicator */}
-                <div className="flex items-center gap-2 text-sm mr-2">
+                <div className="flex items-center gap-2 text-sm">
                   <span className="text-white/80 font-semibold min-w-[2.5rem] text-right">
                     {completedHabitsToday}/{totalHabitsToday}
                   </span>
-                  <div className="w-16 sm:w-24 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
+                  <div className="w-12 sm:w-24 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
                     <div
                       className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full transition-all duration-700 ease-out"
                       style={{ width: `${progressPercentage}%` }}
                     />
                   </div>
-                  <span className="text-white/60 font-semibold min-w-[3.25rem] text-right">
+                  <span className="text-white/60 font-semibold min-w-[2.75rem] text-right">
                     {formattedPercentage}%
                   </span>
                 </div>
