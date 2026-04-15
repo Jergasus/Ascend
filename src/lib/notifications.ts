@@ -12,12 +12,22 @@ const parseTime = (timeStr: string) => {
   return { hours, minutes };
 };
 
-// Helper to get day of year (1-366)
+// Helper to get day of year (1-366).
+// Both anchor and target are normalized to noon local time so DST hour shifts
+// (transitions happen at 2-3 AM) can't push the result across a day boundary —
+// otherwise schedule (computed at 00:00) and cancel (computed at click time)
+// would derive different IDs and the cancel would silently miss.
 const getDayOfYear = (date: Date) => {
-  const start = new Date(date.getFullYear(), 0, 0);
-  const diff = date.getTime() - start.getTime();
+  const start = new Date(date.getFullYear(), 0, 1, 12, 0, 0, 0);
+  const normalized = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    12, 0, 0, 0
+  );
+  const diff = normalized.getTime() - start.getTime();
   const oneDay = 1000 * 60 * 60 * 24;
-  return Math.floor(diff / oneDay);
+  return Math.round(diff / oneDay) + 1;
 };
 
 export const requestNotificationPermissions = async () => {
