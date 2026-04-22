@@ -96,7 +96,7 @@ export default function CheckHabitsModal({
   );
   const [showCelebration, setShowCelebration] = useState(false);
   const [showUpcoming, setShowUpcoming] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const [previousProgress, setPreviousProgress] = useState<number | null>(null);
 
@@ -138,12 +138,12 @@ export default function CheckHabitsModal({
 
   const currentWeek = getCurrentWeek();
 
-  // Rolling 7-day window starting tomorrow — used by the "upcoming days" peek.
-  const upcomingWeek: Date[] = (() => {
+  // Next 2 days (tomorrow + day after) — used by the "upcoming days" peek.
+  const upcomingDays: Date[] = (() => {
     const base = new Date();
     base.setHours(0, 0, 0, 0);
     const days: Date[] = [];
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 2; i++) {
       const d = new Date(base);
       d.setDate(base.getDate() + i);
       days.push(d);
@@ -189,14 +189,20 @@ export default function CheckHabitsModal({
       return (a.order || 0) - (b.order || 0);
     });
 
-  // Habits scheduled at least once in the next 7 days (honoring category filter).
-  const upcomingHabits = (
+  // Habits scheduled on each upcoming day (honoring category filter).
+  const categoryFilteredHabits =
     selectedCategories.size === 0
       ? habits
-      : habits.filter((h) => selectedCategories.has(h.category))
-  )
-    .filter((h) => upcomingWeek.some((d) => shouldShowHabit(h, d)))
-    .sort((a, b) => (a.order || 0) - (b.order || 0));
+      : habits.filter((h) => selectedCategories.has(h.category));
+
+  const upcomingHabitsByDay = upcomingDays.map((day) => ({
+    day,
+    habits: categoryFilteredHabits
+      .filter((h) => shouldShowHabit(h, day))
+      .sort((a, b) => (a.order || 0) - (b.order || 0)),
+  }));
+
+  const hasUpcoming = upcomingHabitsByDay.some((d) => d.habits.length > 0);
 
   // Configure sensors for drag and drop
   const sensors = useSensors(
@@ -623,8 +629,8 @@ export default function CheckHabitsModal({
                 </DndContext>
               )}
 
-              {/* Peek upcoming days — read-only preview of the next 7 days' scheduled habits */}
-              {!isLoading && upcomingHabits.length > 0 && (
+              {/* Peek upcoming days — read-only preview of the next 2 days' scheduled habits */}
+              {!isLoading && hasUpcoming && (
                 <div className="mt-6">
                   <button
                     onClick={() => setShowUpcoming((v) => !v)}
@@ -639,39 +645,53 @@ export default function CheckHabitsModal({
                   </button>
 
                   {showUpcoming && (
-                    <>
-                      <div className="flex items-center gap-3 my-5">
-                        <div className="flex-1 h-px bg-white/10" />
-                        <span className="text-white/50 text-xs uppercase tracking-wider font-semibold">
-                          {t.upcoming}
-                        </span>
-                        <div className="flex-1 h-px bg-white/10" />
-                      </div>
-                      {/* Own DndContext so useSortable inside each item still has a host — but with no drag handler, reordering is a no-op */}
-                      <DndContext collisionDetection={closestCenter}>
-                        <SortableContext
-                          items={upcomingHabits.map((h) => h.id)}
-                          strategy={verticalListSortingStrategy}
-                        >
-                          <div className="space-y-4">
-                            {upcomingHabits.map((habit) => (
-                              <SortableHabitItem
-                                key={`upcoming-${habit.id}`}
-                                habit={habit}
-                                currentWeek={upcomingWeek}
-                                completions={completions}
-                                handleToggle={handleToggle}
-                                setEditingHabit={setEditingHabit}
-                                handleDeleteHabit={handleDeleteHabit}
-                                isDeleting={isDeleting}
-                                isUpdating={isUpdating}
-                                disableDrag
-                              />
-                            ))}
+                    <div className="mt-5 space-y-6">
+                      {upcomingHabitsByDay.map(({ day, habits: dayHabits }, idx) => {
+                        if (dayHabits.length === 0) return null;
+                        const label =
+                          idx === 0
+                            ? t.tomorrow
+                            : day
+                                .toLocaleDateString(language, { weekday: "long" })
+                                .replace(/^./, (c) => c.toUpperCase());
+                        return (
+                          <div key={day.toISOString()}>
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="flex-1 h-px bg-white/10" />
+                              <span className="text-white/50 text-xs uppercase tracking-wider font-semibold">
+                                {label}
+                              </span>
+                              <div className="flex-1 h-px bg-white/10" />
+                            </div>
+                            <div className="space-y-2">
+                              {dayHabits.map((habit) => (
+                                <div
+                                  key={`upcoming-${idx}-${habit.id}`}
+                                  className="bg-white/5 border border-white/10 rounded-2xl p-3 flex items-center gap-3"
+                                  style={{
+                                    borderLeftWidth: "4px",
+                                    borderLeftColor: habit.color,
+                                  }}
+                                >
+                                  <div
+                                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                                    style={{ backgroundColor: habit.color }}
+                                  />
+                                  <div className="flex-1 min-w-0">
+                                    <div className="text-white font-semibold truncate">
+                                      {habit.name}
+                                    </div>
+                                    <div className="text-white/50 text-xs truncate">
+                                      {habit.category}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </SortableContext>
-                      </DndContext>
-                    </>
+                        );
+                      })}
+                    </div>
                   )}
                 </div>
               )}
