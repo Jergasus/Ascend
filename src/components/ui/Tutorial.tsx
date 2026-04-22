@@ -19,7 +19,7 @@ export default function Tutorial({ hasSeenTutorial }: TutorialProps) {
       const driverObj = driver({
         showProgress: true,
         allowClose: false,
-        stagePadding: 8,
+        stagePadding: 0,
         stageRadius: 50, // Make it fully round
         popoverClass: "driverjs-theme",
         nextBtnText: t.tutorialNext,
