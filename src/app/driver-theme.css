@@ -124,25 +124,19 @@ div.driver-popover.driverjs-theme {
   fill: rgba(0, 0, 0, 0.85) !important;
 }
 
-/* Halo glow around the currently highlighted element.
-   The driver.js overlay cuts a hole (stagePadding) — keep the total shadow extent
-   smaller than stagePadding or the outer edge of the halo gets covered. */
-.driver-active-element {
-  border-radius: 9999px !important;
-  animation: driverPulse 1.8s ease-in-out infinite !important;
+/* Tutorial accent: recolor the focused element to purple so the eye is drawn to it.
+   The driver.js overlay already provides a spotlight cutout; this just swaps the
+   visible color on top of that. */
+#create-habit-btn.driver-active-element {
+  background-color: rgb(168, 85, 247) !important;
+  color: #ffffff !important;
+  transition: background-color 0.25s ease, color 0.25s ease !important;
 }
 
-@keyframes driverPulse {
-  0%, 100% {
-    box-shadow:
-      0 0 0 3px rgb(168, 85, 247),
-      0 0 12px 2px rgba(168, 85, 247, 0.7);
-  }
-  50% {
-    box-shadow:
-      0 0 0 4px rgb(168, 85, 247),
-      0 0 16px 3px rgba(168, 85, 247, 1);
-  }
+#check-habits-tab.driver-active-element,
+#settings-tab.driver-active-element {
+  color: rgb(168, 85, 247) !important;
+  transition: color 0.25s ease !important;
 }
 
 /* Animation for step transitions */

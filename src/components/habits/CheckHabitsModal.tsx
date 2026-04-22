@@ -138,17 +138,13 @@ export default function CheckHabitsModal({
 
   const currentWeek = getCurrentWeek();
 
-  // Next 2 days (tomorrow + day after) — used by the "upcoming days" peek.
+  // Tomorrow only — used by the "upcoming days" peek.
   const upcomingDays: Date[] = (() => {
     const base = new Date();
     base.setHours(0, 0, 0, 0);
-    const days: Date[] = [];
-    for (let i = 1; i <= 2; i++) {
-      const d = new Date(base);
-      d.setDate(base.getDate() + i);
-      days.push(d);
-    }
-    return days;
+    const tomorrow = new Date(base);
+    tomorrow.setDate(base.getDate() + 1);
+    return [tomorrow];
   })();
 
   // --- FIX: Calculate progress using LOCAL date ---
