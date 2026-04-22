@@ -16,6 +16,13 @@ export default function Tutorial({ hasSeenTutorial }: TutorialProps) {
 
   useEffect(() => {
     if (!hasSeenTutorial && isInitialized) {
+      // driver.js doesn't support per-step stagePadding, so we flip it in onHighlightStarted:
+      // the circular + button wants a 0-padding cutout so the hole matches its radius exactly,
+      // but the rectangular tab buttons look too tight at 0 — restore 8px padding there.
+      const setStagePadding = (px: number) => {
+        driverObj.setConfig({ ...driverObj.getConfig(), stagePadding: px });
+      };
+
       const driverObj = driver({
         showProgress: true,
         allowClose: false,
@@ -28,6 +35,7 @@ export default function Tutorial({ hasSeenTutorial }: TutorialProps) {
         steps: [
           {
             element: "#create-habit-btn",
+            onHighlightStarted: () => setStagePadding(0),
             popover: {
               title: t.tutorialCreateTitle,
               description: t.tutorialCreateDesc,
@@ -37,6 +45,7 @@ export default function Tutorial({ hasSeenTutorial }: TutorialProps) {
           },
           {
             element: "#check-habits-tab",
+            onHighlightStarted: () => setStagePadding(8),
             popover: {
               title: t.tutorialCheckTitle,
               description: t.tutorialCheckDesc,
@@ -46,6 +55,7 @@ export default function Tutorial({ hasSeenTutorial }: TutorialProps) {
           },
           {
             element: "#settings-tab",
+            onHighlightStarted: () => setStagePadding(8),
             popover: {
               title: t.tutorialSettingsTitle,
               description: t.tutorialSettingsDesc,
