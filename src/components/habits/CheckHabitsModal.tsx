@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useHabits } from "@/contexts/HabitsContext";
 import { useToast } from "@/contexts/ToastContext";
-import { shouldShowHabitToday } from "@/lib/habitFrequency";
+import { shouldShowHabit, shouldShowHabitToday } from "@/lib/habitFrequency";
 import {
   X,
   BarChart3,
@@ -95,6 +95,7 @@ export default function CheckHabitsModal({
     new Set()
   );
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showUpcoming, setShowUpcoming] = useState(false);
   const { t } = useLanguage();
 
   const [previousProgress, setPreviousProgress] = useState<number | null>(null);
@@ -137,6 +138,19 @@ export default function CheckHabitsModal({
 
   const currentWeek = getCurrentWeek();
 
+  // Rolling 7-day window starting tomorrow — used by the "upcoming days" peek.
+  const upcomingWeek: Date[] = (() => {
+    const base = new Date();
+    base.setHours(0, 0, 0, 0);
+    const days: Date[] = [];
+    for (let i = 1; i <= 7; i++) {
+      const d = new Date(base);
+      d.setDate(base.getDate() + i);
+      days.push(d);
+    }
+    return days;
+  })();
+
   // --- FIX: Calculate progress using LOCAL date ---
   const todayDate = new Date();
   const todayYear = todayDate.getFullYear();
@@ -174,6 +188,15 @@ export default function CheckHabitsModal({
       // 2. Sort by manual order
       return (a.order || 0) - (b.order || 0);
     });
+
+  // Habits scheduled at least once in the next 7 days (honoring category filter).
+  const upcomingHabits = (
+    selectedCategories.size === 0
+      ? habits
+      : habits.filter((h) => selectedCategories.has(h.category))
+  )
+    .filter((h) => upcomingWeek.some((d) => shouldShowHabit(h, d)))
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
 
   // Configure sensors for drag and drop
   const sensors = useSensors(
@@ -598,6 +621,59 @@ export default function CheckHabitsModal({
                     </div>
                   </SortableContext>
                 </DndContext>
+              )}
+
+              {/* Peek upcoming days — read-only preview of the next 7 days' scheduled habits */}
+              {!isLoading && upcomingHabits.length > 0 && (
+                <div className="mt-6">
+                  <button
+                    onClick={() => setShowUpcoming((v) => !v)}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all text-sm font-medium"
+                  >
+                    <span className="text-lg leading-none">
+                      {showUpcoming ? "−" : "+"}
+                    </span>
+                    <span>
+                      {showUpcoming ? t.hideUpcoming : t.showUpcoming}
+                    </span>
+                  </button>
+
+                  {showUpcoming && (
+                    <>
+                      <div className="flex items-center gap-3 my-5">
+                        <div className="flex-1 h-px bg-white/10" />
+                        <span className="text-white/50 text-xs uppercase tracking-wider font-semibold">
+                          {t.upcoming}
+                        </span>
+                        <div className="flex-1 h-px bg-white/10" />
+                      </div>
+                      {/* Own DndContext so useSortable inside each item still has a host — but with no drag handler, reordering is a no-op */}
+                      <DndContext collisionDetection={closestCenter}>
+                        <SortableContext
+                          items={upcomingHabits.map((h) => h.id)}
+                          strategy={verticalListSortingStrategy}
+                        >
+                          <div className="space-y-4">
+                            {upcomingHabits.map((habit) => (
+                              <SortableHabitItem
+                                key={`upcoming-${habit.id}`}
+                                habit={habit}
+                                currentWeek={upcomingWeek}
+                                completions={completions}
+                                handleToggle={handleToggle}
+                                setEditingHabit={setEditingHabit}
+                                handleDeleteHabit={handleDeleteHabit}
+                                isDeleting={isDeleting}
+                                isUpdating={isUpdating}
+                                disableDrag
+                              />
+                            ))}
+                          </div>
+                        </SortableContext>
+                      </DndContext>
+                    </>
+                  )}
+                </div>
               )}
             </div>
           </div>

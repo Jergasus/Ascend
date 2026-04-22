@@ -124,6 +124,30 @@ div.driver-popover.driverjs-theme {
   fill: rgba(0, 0, 0, 0.85) !important;
 }
 
+/* Halo glow around the currently highlighted element */
+.driver-active-element {
+  border-radius: 50px !important;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.6),
+    0 0 24px 6px rgba(147, 51, 234, 0.55) !important;
+  animation: driverPulse 1.8s ease-in-out infinite !important;
+  position: relative;
+  z-index: 2147483646 !important;
+}
+
+@keyframes driverPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.55),
+      0 0 20px 4px rgba(147, 51, 234, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(255, 255, 255, 0.85),
+      0 0 32px 10px rgba(147, 51, 234, 0.7);
+  }
+}
+
 /* Animation for step transitions */
 div.driver-popover.driverjs-theme {
   /* Add transition property to the base class for smooth movement */

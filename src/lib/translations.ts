@@ -195,6 +195,11 @@ export interface Translations {
   tutorialPrevious: string;
   tutorialDone: string;
 
+  // Upcoming days peek
+  showUpcoming: string;
+  hideUpcoming: string;
+  upcoming: string;
+
   // Mobile Auth Callback
   verifyingSession: string;
   sessionStarted: string;
@@ -410,6 +415,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "Next",
     tutorialPrevious: "Previous",
     tutorialDone: "Done",
+
+    showUpcoming: "View upcoming days",
+    hideUpcoming: "Hide upcoming days",
+    upcoming: "Upcoming days",
     viewAllHabits: "View all habits",
     viewStatistics: "View statistics",
     addReminder: "Add reminder",
@@ -619,6 +628,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "Siguiente",
     tutorialPrevious: "Anterior",
     tutorialDone: "Hecho",
+
+    showUpcoming: "Ver próximos días",
+    hideUpcoming: "Ocultar próximos días",
+    upcoming: "Próximos días",
     viewAllHabits: "Ver todos los hábitos",
     viewStatistics: "Ver estadísticas",
     addReminder: "Añadir recordatorio",
@@ -826,6 +839,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "Suivant",
     tutorialPrevious: "Précédent",
     tutorialDone: "Terminé",
+
+    showUpcoming: "Voir les jours à venir",
+    hideUpcoming: "Masquer les jours à venir",
+    upcoming: "Jours à venir",
     viewAllHabits: "Voir toutes les habitudes",
     viewStatistics: "Voir les statistiques",
     addReminder: "Ajouter un rappel",
@@ -1036,6 +1053,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "Weiter",
     tutorialPrevious: "Zurück",
     tutorialDone: "Fertig",
+
+    showUpcoming: "Kommende Tage anzeigen",
+    hideUpcoming: "Kommende Tage ausblenden",
+    upcoming: "Kommende Tage",
     viewAllHabits: "Alle Gewohnheiten anzeigen",
     viewStatistics: "Statistiken anzeigen",
     addReminder: "Erinnerung hinzufügen",
@@ -1244,6 +1265,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "Próximo",
     tutorialPrevious: "Anterior",
     tutorialDone: "Concluído",
+
+    showUpcoming: "Ver próximos dias",
+    hideUpcoming: "Ocultar próximos dias",
+    upcoming: "Próximos dias",
     viewAllHabits: "Ver todos os hábitos",
     viewStatistics: "Ver estatísticas",
     addReminder: "Adicionar lembrete",
@@ -1451,6 +1476,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "Successivo",
     tutorialPrevious: "Precedente",
     tutorialDone: "Fatto",
+
+    showUpcoming: "Vedi i prossimi giorni",
+    hideUpcoming: "Nascondi i prossimi giorni",
+    upcoming: "Prossimi giorni",
     viewAllHabits: "Visualizza tutte le abitudini",
     viewStatistics: "Visualizza statistiche",
     addReminder: "Aggiungi promemoria",
@@ -1655,6 +1684,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "次へ",
     tutorialPrevious: "前へ",
     tutorialDone: "完了",
+
+    showUpcoming: "今後の日を表示",
+    hideUpcoming: "今後の日を隠す",
+    upcoming: "今後の日",
     viewAllHabits: "すべての習慣を表示",
     viewStatistics: "統計を表示",
     addReminder: "リマインダーを追加",
@@ -1859,6 +1892,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "다음",
     tutorialPrevious: "이전",
     tutorialDone: "완료",
+
+    showUpcoming: "다음 날짜 보기",
+    hideUpcoming: "다음 날짜 숨기기",
+    upcoming: "다음 날짜",
     viewAllHabits: "모든 습관 보기",
     viewStatistics: "통계 보기",
     addReminder: "알림 추가",
@@ -2058,6 +2095,10 @@ export const translations: Record<Language, Translations> = {
     tutorialNext: "下一步",
     tutorialPrevious: "上一步",
     tutorialDone: "完成",
+
+    showUpcoming: "查看未来几天",
+    hideUpcoming: "隐藏未来几天",
+    upcoming: "未来几天",
     viewAllHabits: "查看所有习惯",
     viewStatistics: "查看统计",
     addReminder: "添加提醒",

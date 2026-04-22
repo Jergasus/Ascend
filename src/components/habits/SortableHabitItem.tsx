@@ -35,6 +35,7 @@ interface SortableHabitItemProps {
   isDeleting?: number | null;
   isUpdating?: number | null;
   isLocked?: boolean;
+  disableDrag?: boolean;
 }
 
 // --- STREAK LOGIC WITH RECOVERY AND SMART BEST STREAK ---
@@ -174,6 +175,7 @@ export default function SortableHabitItem({
   isDeleting,
   isUpdating,
   isLocked = false,
+  disableDrag = false,
 }: SortableHabitItemProps) {
   const { t } = useLanguage();
   const {
@@ -252,13 +254,15 @@ export default function SortableHabitItem({
       >
         <div className={`px-2 pt-4 pb-4 sm:p-6 ${isLocked ? "opacity-50" : ""}`}>
         <div className="flex items-center gap-3 sm:gap-4 mb-4 px-2">
-          <button
-            {...listeners}
-            className="text-white/40 hover:text-white/80 transition-colors cursor-grab active:cursor-grabbing touch-none"
-            title="Drag to reorder"
-          >
-            <GripVertical size={20} className="sm:w-6 sm:h-6" />
-          </button>
+          {!disableDrag && (
+            <button
+              {...listeners}
+              className="text-white/40 hover:text-white/80 transition-colors cursor-grab active:cursor-grabbing touch-none"
+              title="Drag to reorder"
+            >
+              <GripVertical size={20} className="sm:w-6 sm:h-6" />
+            </button>
+          )}
           <div
             className="h-full w-1.5 rounded-full flex-shrink-0"
             style={{ backgroundColor: habit.color }}
