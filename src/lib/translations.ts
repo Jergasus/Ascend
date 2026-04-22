@@ -10,7 +10,7 @@ export type Language =
   | "zh";
 
 export interface Translations {
-  // Home View
+  // Home View 
   hello: string;
   readyToAscend: string;
   settingsSubtitle: string;
